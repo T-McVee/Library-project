@@ -150,6 +150,9 @@ function removeBookFromLibrary(e) {
 function getInputValues() {
   let inputs = Array.from(form.querySelectorAll('.form-input'));
   let properties = inputs.map(input => input.value);
+  properties[4] == 'true' ? properties[4] = true
+    : properties[4] = false;
+
   createNewBook(properties);
 }
 
