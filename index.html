@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/f3d316695c.js" crossorigin="anonymous"></script>
+  <title>Library Project</title>
+</head>
+
+<body>
+  <div class="container d-flex">
+    <nav class="d-flex">
+      <div class="left">
+        <h1>Keep<span>Reads</span></h1>
+        <span class="tag-line">Your to-do list for books</span>
+      </div>
+      <button id="add-book">Add New Book</button>
+    </nav>
+    <div class="app d-flex">
+      <div class="credit d-flex">
+        <span>Created By Tim McVinish <a href="https://github.com/T-McVee" target="blank"><i
+              class="fa fa-github fa-lg"></i></a></span>
+      </div>
+      <div class="book-shelf d-flex">
+        <div class="instructions">
+          <p>Click 'Add New Book' to begin tracking of all those great books you want to read.</p>
+          <p>Click 'Read' to mark a book as finished</p>
+          <p>Happy Reading!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New book form -->
+  <div class="form-control d-flex center">
+    <form action="" class="form d-flex ">
+      <div id="close-form">x</div>
+      <div class="input-group d-flex">
+        <label for="input-title">Title:</label>
+        <input type="text" name="title" id="form-input-title" class="form-input" placeholder="">
+      </div>
+      <div class="input-group d-flex">
+        <label for="input-sub-title">Subtitle:</label>
+        <input type="text" name="sub-title" id="form-input-sub-title" class="form-input" placeholder="">
+      </div>
+      <div class="input-group d-flex">
+        <label for="input-author">Author:</label>
+        <input type="text" name="author" id="form-input-author" class="form-input" placeholder="">
+      </div>
+      <div class="input-group d-flex">
+        <label for="input-pages">Pages:</label>
+        <input type="number" name="pages" id="form-input-pages" class="form-input">
+      </div>
+      <div class="input-group d-flex">
+        <select name="read" value="true" id="form-input-isRead" class="form-input">
+          <option value="true">I've read this book</option>
+          <option value="false">I want to read this</option>
+        </select>
+      </div>
+      <button type="button" id="submit-form">Add To Library</button>
+    </form>
+  </div>
+
+
+  <script src="main.js"></script>
+</body>
+
+</html>
