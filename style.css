@@ -342,6 +342,10 @@ select {
   width: 210px;
 }
 
+#form-input-title.error {
+  border: 2px red solid;
+}
+
 #submit-form {
   background: var(--dark-blue);
   border-color: var(--mid-beige);

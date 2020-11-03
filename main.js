@@ -153,7 +153,8 @@ function getInputValues() {
   properties[4] == 'true' ? properties[4] = true
     : properties[4] = false;
 
-  createNewBook(properties);
+  properties[0] != '' ? createNewBook(properties)
+    : displayError();
 }
 
 function createNewBook(properties) {
@@ -162,6 +163,10 @@ function createNewBook(properties) {
   populateStorage();
   displayLibrary(myLibrary.books);
   closeForm();
+}
+
+function displayError() {
+  formTitle.classList.add('error');
 }
 
 function toggleIsRead(e) {
@@ -176,8 +181,7 @@ function toggleIsRead(e) {
 function moveCard(e) {
   const targetCard = e.target;
   let currentPosition = getPosition(targetCard);
-
-  currentPosition.x == -50
+  currentPosition.x == -50 && myLibrary.books.length > 1 && targetCard.dataset.index < myLibrary.books.length - 1
     ? e.target.style.transform = `translate(-50%, ${currentPosition.y - 50}px) rotate(3deg)`
     : null;
 }
@@ -185,8 +189,7 @@ function moveCard(e) {
 function returnCard(e) {
   const targetCard = e.target;
   let currentPosition = getPosition(targetCard);
-
-  currentPosition.x == -50
+  currentPosition.x == -50 && myLibrary.books.length > 1 && targetCard.dataset.index < myLibrary.books.length - 1
     ? e.target.style.transform = `translate(-50%, ${currentPosition.y + 50}px)`
     : null;
 }
@@ -225,6 +228,7 @@ function closeForm() {
   formOverLay.style.opacity = '0';
   form.style.transform = 'translateX(-100vw)';
   document.body.style.position = '';
+  formTitle.classList.remove('error');
   form.reset();
 }
 
