@@ -11,101 +11,103 @@ const myLibrary = {
   books: []
 };
 
-// Book Constructor
-function Book(title, subTitle, author, pages, isRead) {
-  this.title = title;
-  this.subTitle = subTitle;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-}
+class Book {
+  constructor(title, subTitle, author, pages, isRead) {
+    this.title = title;
+    this.subTitle = subTitle;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 
-Book.prototype.createCard = (index) => {
-  let card = document.createElement('div');
-  card.classList.add('card');
-  index === 0 ? card.style.transform = 'translate(-50%, 0)'
-    : card.style.transform = `translate(-50%, ${index * 58}px)`;
-  card.addEventListener('mouseenter', moveCard);
-  card.addEventListener('mouseleave', returnCard);
-  card.setAttribute('data-index', index);
-  return card;
-}
+  createCard(index) {
+    let card = document.createElement('div');
+    card.classList.add('card');
+    index === 0 ? card.style.transform = 'translate(-50%, 0)'
+      : card.style.transform = `translate(-50%, ${index * 58}px)`;
+    card.addEventListener('mouseenter', moveCard);
+    card.addEventListener('mouseleave', returnCard);
+    card.setAttribute('data-index', index);
+    return card;
+  }
 
-Book.prototype.createCardHeader = () => {
-  let cardHeader = document.createElement('div');
-  cardHeader.classList.add('card-header');
-  return cardHeader;
-}
+  createCardHeader() {
+    let cardHeader = document.createElement('div');
+    cardHeader.classList.add('card-header');
+    return cardHeader;
+  }
 
-Book.prototype.createCardBody = () => {
-  let cardBody = document.createElement('div');
-  cardBody.classList.add('card-body');
+  createCardBody() {
+    let cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
 
-  return cardBody;
-}
+    return cardBody;
+  }
 
-Book.prototype.toggle = function () {
-  this.isRead = !this.isRead;
-}
+  toggle() {
+    this.isRead = !this.isRead;
+  }
 
-Book.prototype.display = function (target) {
-  card = this.createCard(myLibrary.books.findIndex(item => item.title == this.title));
-  cardHeader = this.createCardHeader();
-  cardBody = this.createCardBody();
-  target.appendChild(card);
-  card.appendChild(cardHeader);
-  card.appendChild(cardBody);
+  display(target) {
+    let card = this.createCard(myLibrary.books.findIndex(item => item.title == this.title));
+    let cardHeader = this.createCardHeader();
+    let cardBody = this.createCardBody();
+    target.appendChild(card);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
 
-  // Display properties
-  let keys = Object.keys(this);
-  keys.forEach(key => {
-    let prop = document.createElement('div');
-    prop.id = key;
-    prop.classList.add(`${key}`);
-    prop.classList.add(`prop`);
-    key == 'isRead' && this.isRead == false ? card.childNodes[0].classList.add('not-read')
-      : key == 'isRead' && this.isRead != false ? null
-        : key == 'author' ? prop.textContent = `By ${this[key]}`
-          : key == 'pages' ? prop.textContent = `Page Count: ${this[key]}`
-            : prop.textContent = this[key];
-    prop.id == 'title' ? prop.addEventListener('click', openCard) : null;
+    // Display properties
+    let keys = Object.keys(this);
+    keys.forEach(key => {
+      let prop = document.createElement('div');
+      prop.id = key;
+      prop.classList.add(`${key}`);
+      prop.classList.add(`prop`);
+      key == 'isRead' && this.isRead == false ? card.childNodes[0].classList.add('not-read')
+        : key == 'isRead' && this.isRead != false ? null
+          : key == 'author' ? prop.textContent = `By ${this[key]}`
+            : key == 'pages' ? prop.textContent = `Page Count: ${this[key]}`
+              : prop.textContent = this[key];
+      prop.id == 'title' ? prop.addEventListener('click', openCard) : null;
 
-    key === 'title' || key === 'subTitle' ? card.childNodes[0].appendChild(prop)
-      : card.childNodes[1].appendChild(prop);
-  });
-  console.log(myLibrary.books.findIndex(item => item.title == this.title));
+      key === 'title' || key === 'subTitle' ? card.childNodes[0].appendChild(prop)
+        : card.childNodes[1].appendChild(prop);
+    });
+    console.log(myLibrary.books.findIndex(item => item.title == this.title));
 
-  createDeleteButton(cardHeader);
-  createReadButton(cardBody, myLibrary.books.findIndex(item => item.title == this.title));
-  if (this.isRead == false) {
-    cardHeader.classList.add('not-read');
-    console.log(cardBody.childNodes[3].classList.remove('is-read'));
-    console.log(cardBody.childNodes[3].classList.add('not-read'));
-  } else {
-    cardHeader.classList.add('is-read');
-    console.log(cardBody.childNodes[3].classList.remove('not-read'));
-    console.log(cardBody.childNodes[3].classList.add('is-read'));
+    createDeleteButton(cardHeader);
+    createReadButton(cardBody, myLibrary.books.findIndex(item => item.title == this.title));
+    if (this.isRead == false) {
+      cardHeader.classList.add('not-read');
+      console.log(cardBody.childNodes[3].classList.remove('is-read'));
+      console.log(cardBody.childNodes[3].classList.add('not-read'));
+    } else {
+      cardHeader.classList.add('is-read');
+      console.log(cardBody.childNodes[3].classList.remove('not-read'));
+      console.log(cardBody.childNodes[3].classList.add('is-read'));
+    }
   }
 }
 
+class Btn {
+  constructor(name, text, state, action) {
+    this.name = name;
+    this.text = text;
+    this.state = state;
+    this.action = action;
+  }
 
-// Button Constructor
-function Btn(name, text, state, action) {
-  this.name = name;
-  this.text = text;
-  this.state = state;
-  this.action = action;
+  display() {
+    let newBtn = document.createElement('div');
+    newBtn.classList.add('btn');
+    this.name == 'toggle' && this.state != 'false' ? newBtn.classList.add('is-read')
+      : newBtn.classList.add('not-read');
+    newBtn.textContent = `${this.text}`
+    newBtn.addEventListener('click', this.action);
+    return newBtn;
+  }
 }
 
-Btn.prototype.display = function () {
-  let newBtn = document.createElement('div');
-  newBtn.classList.add('btn');
-  this.name == 'toggle' && this.state != 'false' ? newBtn.classList.add('is-read')
-    : newBtn.classList.add('not-read');
-  newBtn.textContent = `${this.text}`
-  newBtn.addEventListener('click', this.action);
-  return newBtn;
-}
 
 // Create Delete Button
 function createDeleteButton(card) {
